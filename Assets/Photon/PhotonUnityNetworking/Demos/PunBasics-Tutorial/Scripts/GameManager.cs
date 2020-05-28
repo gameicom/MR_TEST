@@ -78,7 +78,7 @@ namespace Photon.Pun.Demo.PunBasics
 					userPrefab = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(0f,1f), 0f, 0f), Quaternion.identity, 0);
 					if (PhotonNetwork.IsMasterClient)
 					{
-						GameObject mlObj = PhotonNetwork.Instantiate(this.mlSpatialPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity, 0);
+						//GameObject mlObj = PhotonNetwork.Instantiate(this.mlSpatialPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity, 0);
 					}
 				}
 				else{

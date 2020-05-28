@@ -223,6 +223,22 @@ namespace MagicLeap
             _placeFromCamera.ForceUpdate();
         }
 
+        public GameObject test = null;
+        public void ToggleMeshRendering()
+        {
+            if(test != null)
+            {
+                if(test.gameObject.activeSelf != true)
+                {
+                    test.gameObject.SetActive(true);
+                }
+                else
+                {
+                    test.gameObject.SetActive(false);
+                }
+            }
+        }
+
         /// <summary>
         /// Toggle the visibility of the workspace.
         /// </summary>
