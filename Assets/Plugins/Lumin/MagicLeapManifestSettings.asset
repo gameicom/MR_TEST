@@ -20,13 +20,13 @@ MonoBehaviour:
       m_Enabled: 0
       m_Name: AddressBookBasicAccess
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: BackgroundDownload
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: BackgroundUpload
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: BatteryInfo
     - m_ApiLevel: 6
       m_Enabled: 0
@@ -38,37 +38,37 @@ MonoBehaviour:
       m_Enabled: 0
       m_Name: BluetoothGattWrite
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: ConnectBackgroundMusicService
     - m_ApiLevel: 8
       m_Enabled: 0
       m_Name: ConnectionAccess
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: ControllerPose
     - m_ApiLevel: 7
       m_Enabled: 0
       m_Name: DesktopCompanion
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: DrmCertificates
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: GesturesConfig
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: GesturesSubscribe
     - m_ApiLevel: 6
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: HandMesh
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: IdentityRead
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: InAppPurchase
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: Internet
     - m_ApiLevel: 1
       m_Enabled: 1
