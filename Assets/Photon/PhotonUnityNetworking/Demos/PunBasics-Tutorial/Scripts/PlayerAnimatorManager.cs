@@ -20,6 +20,9 @@ namespace Photon.Pun.Demo.PunBasics
 	    private float directionDampTime = 0.25f;
         Animator animator;
 
+		private bool bMove = false;
+		private float horizen = 0f;
+
 		#endregion
 
 		#region MonoBehaviour CallBacks
@@ -59,13 +62,13 @@ namespace Photon.Pun.Demo.PunBasics
 				// When using trigger parameter
                 if (Input.GetButtonDown("Fire2")) animator.SetTrigger("Jump"); 
 			}
-           
+
 			// deal with movement
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+			float h = horizen;//Input.GetAxis("Horizontal");
+			float v = Input.GetAxis("Vertical");
 
 			// prevent negative Speed.
-            if( v < 0 )
+			if ( v < 0 )
             {
                 v = 0;
             }
@@ -73,9 +76,38 @@ namespace Photon.Pun.Demo.PunBasics
 			// set the Animator Parameters
             animator.SetFloat( "Speed", h*h+v*v );
             animator.SetFloat( "Direction", h, directionDampTime, Time.deltaTime );
-	    }
+		}
 
-		#endregion
+        #endregion
 
-	}
+        #region Custom
+		public void SetDirection(float h, float v = 0)
+		{
+			if (h != 0 && bMove)
+				return;
+
+			if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+			{
+				return;
+			}
+
+			// failSafe is missing Animator component on GameObject
+			if (!animator)
+			{
+				return;
+			}
+
+			horizen = h;
+
+			if (horizen == 0)
+				bMove = false;
+			else
+				bMove = true;
+
+			//animator.SetFloat("Speed", h * h + v * v);
+			//animator.SetFloat("Direction", h, directionDampTime, Time.deltaTime);
+		}
+        #endregion
+
+    }
 }

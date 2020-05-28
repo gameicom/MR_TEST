@@ -55,7 +55,7 @@ namespace Photon.Pun.Demo.PunBasics
         {
             if (this.beams == null)
             {
-                Debug.LogError("<Color=Red><b>Missing</b></Color> Beams Reference.", this);
+                //Debug.LogError("<Color=Red><b>Missing</b></Color> Beams Reference.", this);
             }
             else
             {

@@ -38,9 +38,6 @@ namespace MagicLeap
         [SerializeField, Space, Tooltip("Flag specifying if mesh extents are bounded.")]
         private bool _bounded = false;
 
-        [SerializeField, Space, Tooltip("The text to place mesh data on.")]
-        private Text _statusLabel = null;
-
         [SerializeField, Space, Tooltip("Prefab to shoot into the scene.")]
         private GameObject _shootingPrefab = null;
 
@@ -83,12 +80,6 @@ namespace MagicLeap
                 enabled = false;
                 return;
             }
-            if (_statusLabel == null)
-            {
-                Debug.LogError("Error: MeshingExample._statusLabel is not set, disabling script.");
-                enabled = false;
-                return;
-            }
             if (_shootingPrefab == null)
             {
                 Debug.LogError("Error: MeshingExample._shootingPrefab is not set, disabling script.");
@@ -112,6 +103,7 @@ namespace MagicLeap
             MLInput.OnControllerTouchpadGestureStart += OnTouchpadGestureStart;
             #endif
         }
+
 
         /// <summary>
         /// Set correct render mode for meshing and update meshing settings.
@@ -163,9 +155,11 @@ namespace MagicLeap
         /// </summary>
         void Update()
         {
+            if(_camera == null)
+            {
+                _camera = Camera.main;
+            }
             _mlSpatialMapper.gameObject.transform.position = _camera.gameObject.transform.position;
-
-            UpdateStatusText();
         }
 
         /// <summary>
@@ -185,32 +179,6 @@ namespace MagicLeap
         /// <summary>
         /// Updates examples status text.
         /// </summary>
-        private void UpdateStatusText()
-        {
-            _statusLabel.text = string.Format("<color=#dbfb76><b>{0} {1}</b></color>\n{2}: {3}\n",
-                LocalizeManager.GetString("Controller"),
-                LocalizeManager.GetString("Data"),
-                LocalizeManager.GetString("Status"),
-                LocalizeManager.GetString(ControllerStatus.Text));
-
-            _statusLabel.text += string.Format(
-                "\n<color=#dbfb76><b>{0} {1}</b></color>\n{2} {3}: {4}\n{5} {6}: {7}\n{8}: {9}",
-                LocalizeManager.GetString("Meshing"),
-                LocalizeManager.GetString("Data"),
-                LocalizeManager.GetString("Render"),
-                LocalizeManager.GetString("Mode"),
-                LocalizeManager.GetString(_renderMode.ToString()),
-                LocalizeManager.GetString("Bounded"),
-                LocalizeManager.GetString("Extents"),
-                LocalizeManager.GetString(_bounded.ToString()),
-                LocalizeManager.GetString("LOD"),
-                #if UNITY_2019_3_OR_NEWER
-                LocalizeManager.GetString(MLSpatialMapper.DensityToLevelOfDetail(_mlSpatialMapper.density).ToString())
-                #else
-                LocalizeManager.GetString(_mlSpatialMapper.levelOfDetail.ToString())
-                #endif
-                );
-        }
 
         /// <summary>
         /// Handles the event for button down. Changes render mode if bumper is pressed or

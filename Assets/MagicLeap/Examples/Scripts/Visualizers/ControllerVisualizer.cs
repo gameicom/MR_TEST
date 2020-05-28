@@ -64,6 +64,9 @@ namespace MagicLeap
         private MLControllerConnectionHandlerBehavior _controllerConnectionHandler = null;
         private bool _wasControllerValid = true;
 
+        private Vector3 _beforePosition = Vector3.zero;
+        private Photon.Pun.Demo.PunBasics.PlayerAnimatorManager _animManager = null;
+
         private const float MAX_TRIGGER_ROTATION = 35.0f;
 
         /// <summary>
@@ -210,6 +213,41 @@ namespace MagicLeap
             #if PLATFORM_LUMIN
             // Change the color of the trigger
             _triggerMaterial.color = Color.Lerp(_defaultColor, _activeColor, controller.TriggerValue);
+
+            if (_animManager == null)
+            {
+                if (GameObject.FindObjectOfType<Photon.Pun.Demo.PunBasics.GameManager>() != null)
+                {
+                    _animManager = GameObject.FindObjectOfType<Photon.Pun.Demo.PunBasics.GameManager>().GetPlayerAnimatorManager();
+                    _beforePosition = _trigger.transform.position;
+                }
+            }
+
+            if (controller.TriggerValue == 1)
+            {
+                if (_animManager != null)
+                {
+                    _animManager.gameObject.GetComponent<Rigidbody>().useGravity = true;
+
+                    if (_beforePosition.x - _trigger.transform.position.x > 0)
+                    {
+                        _animManager.SetDirection(0.5f);
+                    }
+                    else if(_beforePosition.x - _trigger.transform.position.x < 0)
+                    {
+                        _animManager.SetDirection(-0.5f);
+                    }
+                }
+                _beforePosition = _trigger.transform.position;
+            }
+            else
+            {
+                if (_animManager != null)
+                {
+                    _animManager.SetDirection(0f);
+                }
+                _beforePosition = _trigger.transform.position;
+            }
             #endif
 
             // Set the rotation of the trigger
