@@ -14,9 +14,6 @@ using UnityEngine.XR.MagicLeap;
 public class PhotonMLTest : MonoBehaviour
 {
     [SerializeField]
-    GameObject tOriginalMesh;
-
-    [SerializeField]
     GameObject tParent;
 
     GameObject SenderObj;
@@ -59,10 +56,6 @@ public class PhotonMLTest : MonoBehaviour
             foreach (GameObject obj in tMapper.meshIdToGameObjectMap.Values)
             {
                 Mesh tMesh = obj.GetComponent<MeshFilter>().sharedMesh;
-
-                //GameObject tempObj = PhotonNetwork.Instantiate(this.tOriginalMesh.name, Vector3.zero, Quaternion.identity, 0);
-                //lstCopyObject.Add(tempObj);
-                //lstCopyMesh.Add(tMesh);
 
                 meshDic.Add(tMesh.name, MeshSerializer.WriteMesh(tMesh, false));
                 Destroy(obj);

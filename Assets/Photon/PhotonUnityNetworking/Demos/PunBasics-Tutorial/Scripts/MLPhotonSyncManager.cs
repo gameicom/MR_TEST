@@ -67,6 +67,7 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 GameObject tempObj = Instantiate(this.originMesh, transform);
                 tempObj.GetComponent<MeshFilter>().sharedMesh = MeshSerializer.ReadMesh(mesh);
+                tempObj.GetComponent<MeshCollider>().sharedMesh = MeshSerializer.ReadMesh(mesh);
             }
 
             bCreate = true;
