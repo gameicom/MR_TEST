@@ -41,7 +41,7 @@ namespace Photon.Pun.Demo.PunBasics
         private GameObject playerPrefab;
 
 		[SerializeField]
-		private GameObject mlSpatialPrefab;
+		private GameObject mapperObject;
 
 		private GameObject userPrefab;
 
@@ -75,15 +75,20 @@ namespace Photon.Pun.Demo.PunBasics
 					Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
 					// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-					userPrefab = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(0f,1f), 1f, 0f), Quaternion.identity, 0);
-					if (PhotonNetwork.IsMasterClient)
+					userPrefab = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-1f,1f), 1f, 0f), Quaternion.identity, 0);
+					if(!PhotonNetwork.IsMasterClient)
 					{
-						//GameObject mlObj = PhotonNetwork.Instantiate(this.mlSpatialPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity, 0);
+						mapperObject.SetActive(false);
+					}
+					else
+					{
+						mapperObject.SetActive(true);
 					}
 				}
 				else{
 
 					Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+					mapperObject.SetActive(false);
 				}
 
 
@@ -185,6 +190,11 @@ namespace Photon.Pun.Demo.PunBasics
 			Debug.LogFormat( "PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount );
 
 			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
+
+			//if(PhotonNetwork.CurrentRoom.PlayerCount > 1)
+			//{
+			//	this.SendMessage("SendMesh");
+			//}
 		}
 
 		#endregion

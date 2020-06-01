@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlayerManager.cs" company="Exit Games GmbH">
-//   Part of: Photon Unity Networking Demos
-// </copyright>
-// <summary>
-//  Used in PUN Basics Tutorial to deal with the networked player instance
-// </summary>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,17 +6,19 @@ using UnityEngine.EventSystems;
 namespace Photon.Pun.Demo.PunBasics
 {
 #pragma warning disable 649
-    public class MLSpatialManager : MonoBehaviourPunCallbacks, IPunObservable
+    public class MLPhotonSyncManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         #region Public Fields
 
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
-        public object cMesh;
-        public int iStep;
+        [SerializeField]
+        GameObject originMesh;
 
-        MeshFilter cMeshFilter;
+        public Dictionary<string, byte[]> meshDic = new Dictionary<string, byte[]>();
+
+        bool bCreate = false;
 
         #endregion
 
@@ -45,8 +37,6 @@ namespace Photon.Pun.Demo.PunBasics
             // #Critical
             // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
             DontDestroyOnLoad(gameObject);
-
-            cMeshFilter = GetComponent<MeshFilter>();
         }
 
         /// <summary>
@@ -60,17 +50,27 @@ namespace Photon.Pun.Demo.PunBasics
 #endif
         }
 
-        void SetMesh(Mesh _Mesh)
+        void SetDictionary(Dictionary<string, byte[]> dic)
         {
-            this.cMesh = (object)_Mesh;
-            //this.cMeshFilter.sharedMesh = this.cMesh;
+            Debug.LogError("SetDictionary");
+            meshDic = dic;
+            CreateMesh();
         }
 
-        void SetStep(int _Num)
+        void CreateMesh()
         {
-            this.iStep = _Num;
-        }
+            if (bCreate)
+                return;
 
+            Debug.LogError("CreateMesh");
+            foreach (byte[] mesh in meshDic.Values)
+            {
+                GameObject tempObj = Instantiate(this.originMesh, transform);
+                tempObj.GetComponent<MeshFilter>().sharedMesh = MeshSerializer.ReadMesh(mesh);
+            }
+
+            bCreate = true;
+        }
 
         public override void OnDisable()
         {
@@ -92,7 +92,7 @@ namespace Photon.Pun.Demo.PunBasics
 
         void CalledOnLevelWasLoaded(int level)
         {
-            //transform.position = new Vector3(0f, 0f, 0f);
+            
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -100,15 +100,13 @@ namespace Photon.Pun.Demo.PunBasics
             if (stream.IsWriting)
             {
                 // We own this player: send the others our data
-                stream.SendNext(this.iStep);
-                stream.SendNext(this.cMesh);
+                stream.SendNext(this.meshDic);
             }
             else
             {
                 // Network player, receive data
-                this.iStep = (int)stream.ReceiveNext();
-                this.cMesh = (Mesh)stream.ReceiveNext();
-                cMeshFilter.sharedMesh = (Mesh)this.cMesh;
+                this.meshDic = (Dictionary<string, byte[]>)stream.ReceiveNext();
+                CreateMesh();
             }
         }
     }
