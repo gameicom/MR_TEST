@@ -222,6 +222,22 @@ namespace MagicLeap
 
             _placeFromCamera.ForceUpdate();
         }
+        
+        public void ToggleCanvasSave()
+        {
+            if(GameObject.FindObjectOfType<Photon.Pun.Demo.PunBasics.MLPhotonSyncManager>() != null)
+            {
+                GameObject.FindObjectOfType<Photon.Pun.Demo.PunBasics.MLPhotonSyncManager>().SaveMesh();
+            }
+        }
+
+        public void ToggleCanvasLoad()
+        {
+            if (GameObject.FindObjectOfType<Photon.Pun.Demo.PunBasics.MLPhotonSyncManager>() != null)
+            {
+                GameObject.FindObjectOfType<Photon.Pun.Demo.PunBasics.MLPhotonSyncManager>().LoadMesh();
+            }
+        }
 
         public GameObject test = null;
         public void ToggleMeshRendering()
@@ -245,6 +261,7 @@ namespace MagicLeap
         public void ToggleCanvas()
         {
             ShowCanvas(!_workspace.activeInHierarchy);
+            Application.Quit();
         }
 
         /// <summary>

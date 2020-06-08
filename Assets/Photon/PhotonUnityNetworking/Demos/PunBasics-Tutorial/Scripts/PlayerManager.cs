@@ -216,7 +216,7 @@ namespace Photon.Pun.Demo.PunBasics
             // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
             if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
             {
-                transform.position = new Vector3(0f, 1f, 0f);
+                transform.position = new Vector3((float)PhotonNetwork.LocalPlayer.ActorNumber-1f, 1f, 0f);
             }
 
             GameObject _uiGo = Instantiate(this.playerUiPrefab);

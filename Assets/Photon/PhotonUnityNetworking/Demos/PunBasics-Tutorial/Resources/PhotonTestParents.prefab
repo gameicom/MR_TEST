@@ -85,3 +85,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originMesh: {fileID: 3756021522576170008, guid: 12ad111563819c648a5dc55494a41fe7,
     type: 3}
+  bMulti: 0

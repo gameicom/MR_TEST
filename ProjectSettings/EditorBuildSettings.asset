@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/HelloCube.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
     path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Launcher.unity
     guid: bff77b01b50254edbb6edeeaba5ae8b3
   - enabled: 1
@@ -18,18 +15,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
       for 2.unity
-    guid: 764428c63577f4580af4ce54ca9f4b1b
-  - enabled: 1
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
-      for 3.unity
-    guid: e07afcca5bf1a41f5bd28f498656b7b8
-  - enabled: 1
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
-      for 4.unity
-    guid: e7a7f9734636d415ca84ef3aaf7680f6
-  - enabled: 1
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/PunCockpit-Scene.unity
-    guid: 9d6d60c803e244e51ba945a84b88757d
+    guid: 6f65e235e85ecdf4c81d90a1f00032cd
   m_configObjects:
+    com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: 5f86ecde40e8a3342a2b2e1379467b13,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2ba4dbd235ed941bb8fdb5a40ab00f22,
       type: 2}

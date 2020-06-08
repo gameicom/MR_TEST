@@ -75,7 +75,7 @@ namespace Photon.Pun.Demo.PunBasics
 					Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
 					// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-					userPrefab = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-1f,1f), 1f, 0f), Quaternion.identity, 0);
+					userPrefab = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3((float)PhotonNetwork.LocalPlayer.ActorNumber-1f, 1f, 0f), Quaternion.identity, 0);
 					if(!PhotonNetwork.IsMasterClient)
 					{
 						mapperObject.SetActive(false);
@@ -93,7 +93,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 
 			}
-
+			PhotonNetwork.IsMessageQueueRunning = true;
 		}
 
 		/// <summary>
